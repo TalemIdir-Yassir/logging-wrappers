@@ -9,15 +9,10 @@ import com.google.cloud.logging.Severity;
 
 import java.util.HashMap;
 
-public class CustomEnhancer implements LoggingEventEnhancer {
+public class YassirCustomEnhancer implements LoggingEventEnhancer {
 	
 	@Override
     public void enhanceLogEntry(Builder builder, ILoggingEvent e) {
-        
-        builder.clearLabels();
-        builder.addLabel("domain", "value");
-        builder.addLabel("squad", "value");
-        builder.addLabel("environment", "value");
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("message", e.getMessage());
