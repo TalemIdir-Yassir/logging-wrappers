@@ -27,15 +27,17 @@ public class YassirCustomEnhancer implements LoggingEventEnhancer {
                 builder.addLabel("environment", environment);
         	}
         	
+        	if(mdcContext.containsKey("squad")) {
+        		String squad = mdcContext.get("squad");
+                builder.addLabel("squad", squad);
+        	}
+        	
         	if(mdcContext.containsKey("domain")) {
         		String domain = mdcContext.get("domain");
                 builder.addLabel("domain", domain);
         	}
         	
-        	if(mdcContext.containsKey("squad")) {
-        		String squad = mdcContext.get("squad");
-                builder.addLabel("squad", squad);
-        	}
+        	
             
         }
 
