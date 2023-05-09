@@ -8,11 +8,36 @@ import com.google.cloud.logging.Payload;
 import com.google.cloud.logging.Severity;
 
 import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.MDC;
 
 public class YassirCustomEnhancer implements LoggingEventEnhancer {
 	
 	@Override
     public void enhanceLogEntry(Builder builder, ILoggingEvent e) {
+		
+		builder.clearLabels();
+
+        Map<String, String> mdcContext = MDC.getCopyOfContextMap();
+        if (mdcContext != null) {
+        	
+        	if(mdcContext.containsKey("environment")) {
+        		String environment = mdcContext.get("environment");
+                builder.addLabel("environment", environment);
+        	}
+        	
+        	if(mdcContext.containsKey("domain")) {
+        		String domain = mdcContext.get("domain");
+                builder.addLabel("domain", domain);
+        	}
+        	
+        	if(mdcContext.containsKey("squad")) {
+        		String squad = mdcContext.get("squad");
+                builder.addLabel("squad", squad);
+        	}
+            
+        }
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("message", e.getMessage());
